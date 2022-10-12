@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/fedek6/csv-one-percent-analyzer/issues"
   },
-  "homepage": "https://github.com/fedek6/csv-one-percent-analyzer#readme"
+  "homepage": "https://github.com/fedek6/csv-one-percent-analyzer#readme",
+  "dependencies": {
+    "ts-node": "^10.9.1"
+  }
 }

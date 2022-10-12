@@ -1,2 +1,4 @@
-csv/
-csv/!.gitkeep
+csv/*
+!csv/.gitkeep
+node_modules
+.DS_STORE
