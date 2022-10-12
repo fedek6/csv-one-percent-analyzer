@@ -98,4 +98,5 @@ const dir = path.join(process.cwd(), "csv");
   );
 
   fs.writeFileSync(outputPath, parse(outputAll));
+  console.log("🫡 done");
 })();
