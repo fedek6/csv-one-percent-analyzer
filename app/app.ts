@@ -13,11 +13,15 @@ interface Row {
 }
 
 interface OutputRow {
+  "Imię podatnika": string;
+  "Nazwisko podatnika": string;
+  "Adres zamieszkania podatnika": string;
   md5: string;
+  [key: string]: string | number;
 }
 
 interface Output {
-  [key: string]: Array<Row & OutputRow>;
+  [key: string]: Array<OutputRow>;
 }
 
 const dir = path.join(process.cwd(), "csv");
@@ -27,13 +31,7 @@ const dir = path.join(process.cwd(), "csv");
   const { data, names } = await readCsvDir<Row>(dir);
   let i = 0;
   const outputByYears = {} as Output;
-  const outputAll = [] as Array<
-    Pick<
-      Row,
-      "Imię podatnika" | "Nazwisko podatnika" | "Adres zamieszkania podatnika"
-    > &
-      OutputRow & { [key: string]: string }
-  >;
+  const outputAll = [] as Array<OutputRow>;
   const outputPath = path.join(process.cwd(), "output.csv");
 
   data.forEach((year) => {
@@ -79,14 +77,16 @@ const dir = path.join(process.cwd(), "csv");
       const found = outputByYears[name].find((row) => row.md5 === md5);
 
       if (found) {
-        row[name] = found["Kwota przekazana na rzecz organizacji"];
+        row[name] = Number(
+          found["Kwota przekazana na rzecz organizacji"] as string
+        );
         ++count;
       } else {
-        row[name] = "none";
+        row[name] = 0;
       }
     });
 
-    row.count = count.toString();
+    row.count = count;
   });
 
   outputAll.sort((a, b) =>
